@@ -16,10 +16,7 @@ int utf_init();
 int screen_setup();
 int map_setup();
 
-Player *player_setup();
-int handle_input(int input, Player *user);
-int player_move(int y, int x, Player *user);
-int can_move(int new_y, int new_x, Player *user);
+int plot_line();
 
 /* functions */
 int main()
