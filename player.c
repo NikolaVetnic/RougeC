@@ -15,6 +15,8 @@ Player *player_setup(Vec2 start_pos)
 
 int handle_input(int input, Player *user)
 {
+    Vec2 new_pos = {.x = user->pos.x, .y = user->pos.y};
+
     int new_x = user->pos.x;
     int new_y = user->pos.y;
 
@@ -22,29 +24,27 @@ int handle_input(int input, Player *user)
     {
     case 'w':
     case 'W':
-        new_y--;
+        new_pos.y--;
         break;
 
     case 'a':
     case 'A':
-        new_x--;
+        new_pos.x--;
         break;
 
     case 's':
     case 'S':
-        new_y++;
+        new_pos.y++;
         break;
 
     case 'd':
     case 'D':
-        new_x++;
+        new_pos.x++;
         break;
 
     default:
         break;
     }
-
-    Vec2 new_pos = {.x = new_x, .y = new_y};
 
     if (can_move(new_pos, user) == 0)
         player_move(new_pos, user);

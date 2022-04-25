@@ -5,6 +5,17 @@ int fov_len = 0;           /* current length of FOV buffer */
 int fov_rad = 200;         /* field of view radius */
 int fov_stp = 100;         /* field of view angle step count */
 
+int draw_fov(Player *user)
+{
+    reset_visible();
+    populate_visible(user);
+    draw_visible(user, 1);
+
+    move(user->pos.y, user->pos.x); /* reset pointer to PC */
+
+    return 0;
+}
+
 void reset_visible()
 {
     for (int i = 0; i < fov_len; i++)
@@ -41,15 +52,4 @@ void draw_visible(Player *user, int show_buf_len)
 
         mvprintw(0, 0, str);
     }
-}
-
-int draw_fov(Player *user)
-{
-    reset_visible();
-    populate_visible(user);
-    draw_visible(user, 1);
-
-    move(user->pos.y, user->pos.x); /* reset pointer to PC */
-
-    return 0;
 }
