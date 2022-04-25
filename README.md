@@ -2,7 +2,9 @@
 
 ![RougeC](https://raw.githubusercontent.com/NikolaVetnic/RougeC/master/gif/line-of-sight.gif)
 
-Recreation of classic Rouge game in C. C practice project.
+Recreation of classic Rouge game in C. C practice project. The map generation algorithm used is based on Conway's Game of Life automaton. Field of view implementation relies on ray casting procedure using Bresenham's line algorithm to detect visible ground tiles.
+
+Movement with WASD.
 
 ## Tips
 
