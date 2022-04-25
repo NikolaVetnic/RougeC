@@ -26,7 +26,8 @@ int main()
     screen_setup();
     map_setup();
 
-    user = player_setup();
+    Vec2 start_pos = {.x = 14, .y = 14};
+    user = player_setup(start_pos);
 
     /* main game loop */
     while ((curr_input = getch()) != 'q')

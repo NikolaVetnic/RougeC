@@ -1,23 +1,22 @@
 #include "player.h"
 
-Player *player_setup()
+Player *player_setup(Vec2 start_pos)
 {
     Player *new_player;
     new_player = malloc(sizeof(Player));
 
-    new_player->x_pos = 14;
-    new_player->y_pos = 14;
+    new_player->pos = start_pos;
     new_player->health = 20;
 
-    player_move(14, 14, new_player);
+    player_move(new_player->pos, new_player);
 
     return new_player;
 }
 
 int handle_input(int input, Player *user)
 {
-    int new_x = user->x_pos;
-    int new_y = user->y_pos;
+    int new_x = user->pos.x;
+    int new_y = user->pos.y;
 
     switch (input)
     {
@@ -45,29 +44,30 @@ int handle_input(int input, Player *user)
         break;
     }
 
-    if (can_move(new_y, new_x, user) == 0)
-        player_move(new_y, new_x, user);
+    Vec2 new_pos = {.x = new_x, .y = new_y};
+
+    if (can_move(new_pos, user) == 0)
+        player_move(new_pos, user);
     else /* prevents cursor from going into walls */
-        move(user->y_pos, user->x_pos);
+        move(user->pos.y, user->pos.x);
 
     return 0;
 }
 
-int player_move(int y, int x, Player *user)
+int player_move(Vec2 pos, Player *user)
 {
-    mvprintw(user->y_pos, user->x_pos, t_ground());
+    mvprintw(user->pos.y, user->pos.x, t_ground());
 
-    user->y_pos = y;
-    user->x_pos = x;
+    user->pos = pos;
 
     draw_fov(user);
 
     return 0;
 }
 
-int can_move(int new_y, int new_x, Player *user)
+int can_move(Vec2 pos, Player *user)
 {
-    if (mvinch(new_y, new_x) == t_visible()[0])
+    if (mvinch(pos.y, pos.x) == t_visible()[0])
         return 0;
 
     return -1;
